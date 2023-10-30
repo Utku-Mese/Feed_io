@@ -1,7 +1,9 @@
 import 'package:feed_io/utils/constants.dart';
+import 'package:feed_io/views/screens/map_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 class MyPageView extends StatefulWidget {
   const MyPageView({super.key});
@@ -12,7 +14,7 @@ class MyPageView extends StatefulWidget {
 
 class _MyPageViewState extends State<MyPageView> {
   dynamic selected = 1;
-  PageController controller = PageController();
+  PageController controller = PageController(initialPage: 1);
 
   @override
   void dispose() {
@@ -92,43 +94,57 @@ class _MyPageViewState extends State<MyPageView> {
         ],
       ),
       drawer: Drawer(
-        child: ListView(
-          padding: EdgeInsets.zero,
+        child: Stack(
           children: [
-            DrawerHeader(
-              decoration: const BoxDecoration(
-                color: kPrimaryColor,
-              ),
-              child: Text(
-                "Feed.IO",
-                style: GoogleFonts.poppins(
-                  color: kBackgroundColor,
-                  fontSize: 25,
-                  fontWeight: FontWeight.bold,
-                  shadows: [
-                    const Shadow(
-                      blurRadius: 10.0,
-                      color: Colors.white70,
-                      offset: Offset(2.0, 2.0),
+            ListView(
+              padding: EdgeInsets.zero,
+              children: [
+                DrawerHeader(
+                  decoration: const BoxDecoration(
+                    color: kPrimaryColor,
+                  ),
+                  child: Text(
+                    "Feed.IO",
+                    style: GoogleFonts.poppins(
+                      color: kBackgroundColor,
+                      fontSize: 25,
+                      fontWeight: FontWeight.bold,
+                      shadows: [
+                        const Shadow(
+                          blurRadius: 10.0,
+                          color: Colors.white70,
+                          offset: Offset(2.0, 2.0),
+                        ),
+                      ],
                     ),
-                  ],
+                  ),
                 ),
+                ListTile(
+                  leading: const Icon(FontAwesomeIcons.user),
+                  title: const Text("Profile"),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: const Icon(FontAwesomeIcons.gear),
+                  title: const Text("Settings"),
+                  onTap: () {},
+                ),
+                ListTile(
+                  leading: const Icon(FontAwesomeIcons.rightFromBracket),
+                  title: const Text("Logout"),
+                  onTap: () {},
+                ),
+              ],
+            ),
+            Positioned(
+              bottom: 0,
+              left: 40,
+              child: Lottie.asset(
+                'assets/lotties/bottomCat.json',
+                height: 120,
+                width: 120,
+                repeat: false,
               ),
-            ),
-            ListTile(
-              leading: const Icon(FontAwesomeIcons.user),
-              title: const Text("Profile"),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(FontAwesomeIcons.gear),
-              title: const Text("Settings"),
-              onTap: () {},
-            ),
-            ListTile(
-              leading: const Icon(FontAwesomeIcons.rightFromBracket),
-              title: const Text("Logout"),
-              onTap: () {},
             ),
           ],
         ),
@@ -171,9 +187,7 @@ class _MyPageViewState extends State<MyPageView> {
             Center(
               child: Text("Cams"),
             ),
-            Center(
-              child: Text("Map"),
-            ),
+            MapScreen(),
             Center(
               child: Text("Chat"),
             ),
